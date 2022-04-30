@@ -1,0 +1,24 @@
+volumes:
+    database:
+services:
+    web:
+        build:
+            context: . 
+            dockerfile: dockerfile
+        container_name: webserver
+        ports:
+            - 80:80
+        volumes: 
+            - C:\Users\user\Documents\www\schoolweb:/usr/local/apache2/htdocs
+    database:
+        image: mysql
+        container_name: dbserver
+        command: --default-authentication-plugin=mysql_native_password
+        restart: always
+        environment:
+            - MYSQL_ROOT_PASSWORD=Mysql 
+            - MYSQL_TCP_PORT=3306
+        ports:
+            - 3306:3306
+        volumes:
+            - database:/var/lib/mysql:rw
