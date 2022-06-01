@@ -2,17 +2,21 @@ volumes:
     database:
 services:
     web:
-        build:
-            context: . 
-            dockerfile: dockerfile
+        image: boudzmarcellino/phpapache
+#        build:
+#            context: .
+#            dockerfile: phpApache.dockerfile
         container_name: webserver
         ports:
             - 80:80
         volumes: 
-            - C:\Users\user\Documents\www\schoolweb:/usr/local/apache2/htdocs
+            - /home/user/Documents/www/schoolweb:/var/www/html
+#            - C:\Users\user\Documents\www\schoolweb:/var/www/html
     database:
         image: mysql
         container_name: dbserver
+        command: ["mkdir", "/db" ]
+        working_dir: /db
         command: --default-authentication-plugin=mysql_native_password
         restart: always
         environment:
@@ -22,3 +26,4 @@ services:
             - 3306:3306
         volumes:
             - database:/var/lib/mysql:rw
+            - /home/user/Documents/www/schoolweb/database:/db
