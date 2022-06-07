@@ -13,7 +13,6 @@ class databaseAction extends PDO{
     public function addVisiteur(string $lastName, string $firstName, string $email)
     {
         $state = "INSERT INTO Visiteur(firstName, lastName, email) VALUES (\"$firstName\", \"$lastName\" , \"$email\");";
-        echo($state);
         parent::exec($state);
     }
     public function addNote(){}
